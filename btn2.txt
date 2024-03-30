@@ -1,0 +1,198 @@
+const container = document.querySelector('.container');
+const btn1 = document.querySelector('.btn1');
+const btn2 = document.querySelector('.btn2');
+
+// Function to get random position within container
+function getRandomPosition() {
+    const containerRect = container.getBoundingClientRect();
+    const btn2Rect = btn2.getBoundingClientRect();
+
+    const maxX = containerRect.width - btn2Rect.width;
+    const maxY = containerRect.height - btn2Rect.height;
+
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    return { x: randomX, y: randomY };
+}
+
+btn2.addEventListener('click', () => {
+    const { x, y } = getRandomPosition();
+    btn2.style.left = x + 'px';
+    btn2.style.top = y + 'px';
+});
+
+!!!!WORKING BTN(AS PLANED #1)
+
+const container = document.querySelector('.container');
+const btn1 = document.querySelector('.btn1');
+const btn2 = document.querySelector('.btn2');
+let scaleCount = 0; // Initialize a variable to keep track of the number of times btn2 is clicked
+
+// Function to get random position within container
+function getRandomPosition() {
+    const containerRect = container.getBoundingClientRect();
+    const btn2Rect = btn2.getBoundingClientRect();
+
+    const maxX = containerRect.width - btn2Rect.width;
+    const maxY = containerRect.height - btn2Rect.height;
+
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    return { x: randomX, y: randomY };
+}
+
+// Function to scale up btn1
+function scaleUpBtn1() {
+    scaleCount++; // Increment scaleCount
+    const scaleFactor = 1 + (0.1 * scaleCount); // Incrementally increase the scale factor
+    btn1.style.transform = `scale(${scaleFactor})`;
+}
+
+// Function to reset btn1 to its original size
+function resetBtn1() {
+    btn1.style.transform = 'scale(1)';
+    scaleCount = 0; // Reset scaleCount
+}
+
+btn2.addEventListener('click', () => {
+    const { x, y } = getRandomPosition();
+    btn2.style.left = x + 'px';
+    btn2.style.top = y + 'px';
+    
+    scaleUpBtn1(); // Scale up btn1 when btn2 is clicked
+});
+
+// Reset btn1 when btn2 loses focus
+btn2.addEventListener('blur', () => {
+    resetBtn1();
+});
+
+!!!WORKING BTN #2
+
+const container = document.querySelector('.container');
+const btn1 = document.querySelector('.btn1');
+const btn2 = document.querySelector('.btn2');
+let scaleCount = 0; // Initialize a variable to keep track of the number of times btn2 is clicked
+
+// Function to get random position within container
+function getRandomPosition() {
+    const containerRect = container.getBoundingClientRect();
+    const btn2Rect = btn2.getBoundingClientRect();
+
+    const maxX = containerRect.width - btn2Rect.width;
+    const maxY = containerRect.height - btn2Rect.height;
+
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    return { x: randomX, y: randomY };
+}
+
+// Function to set btn2 position without transition
+function setBtn2Position() {
+    const { x, y } = getRandomPosition();
+    btn2.style.transition = 'none'; // Remove transition
+    btn2.style.left = x + 'px';
+    btn2.style.top = y + 'px';
+    // Re-enable transition after a short delay to avoid it being applied immediately on subsequent clicks
+    setTimeout(() => {
+        btn2.style.transition = ''; // Reset transition to default
+    }, 100);
+}
+
+// Function to scale up btn1
+function scaleUpBtn1() {
+    scaleCount++; // Increment scaleCount
+    const scaleFactor = 1 + (0.1 * scaleCount); // Incrementally increase the scale factor
+    btn1.style.transform = `scale(${scaleFactor})`;
+}
+
+btn2.addEventListener('click', () => {
+    setBtn2Position(); // Set btn2 position to a random position without transition
+    scaleUpBtn1(); // Scale up btn1 when btn2 is clicked
+});
+
+// Reset btn1 when btn2 loses focus
+btn2.addEventListener('blur', () => {
+    resetBtn1();
+});
+
+!!!WITH THE ALERTS
+
+const container = document.querySelector('.container');
+const btn1 = document.querySelector('.btn1');
+const btn2 = document.querySelector('.btn2');
+let scaleCount = 0; // Initialize a variable to keep track of the number of times btn2 is clicked
+let clickCount = 0; // Initialize a variable to keep track of the number of clicks
+
+// Function to get random position within container
+function getRandomPosition() {
+    const containerRect = container.getBoundingClientRect();
+    const btn2Rect = btn2.getBoundingClientRect();
+
+    const maxX = containerRect.width - btn2Rect.width;
+    const maxY = containerRect.height - btn2Rect.height;
+
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    return { x: randomX, y: randomY };
+}
+
+// Function to set btn2 position without transition
+function setBtn2Position() {
+    const { x, y } = getRandomPosition();
+    btn2.style.transition = 'none'; // Remove transition
+    btn2.style.left = x + 'px';
+    btn2.style.top = y + 'px';
+    // Re-enable transition after a short delay to avoid it being applied immediately on subsequent clicks
+    setTimeout(() => {
+        btn2.style.transition = ''; // Reset transition to default
+    }, 100);
+}
+
+// Function to scale up btn1
+function scaleUpBtn1() {
+    scaleCount++; // Increment scaleCount
+    const scaleFactor = 1 + (0.1 * scaleCount); // Incrementally increase the scale factor
+    btn1.style.transform = `scale(${scaleFactor})`;
+}
+
+// Function to display text after a certain number of clicks
+function displayTextAfterClicks() {
+    clickCount++; // Increment clickCount
+    
+    if (clickCount % 5 === 0) { // Check if clickCount is a multiple of 5
+        switch (clickCount / 5) { // Determine which set it is based on clickCount
+            case 1:
+                alert("This is your first warning.");
+                break;
+            case 2:
+                alert("LUHH?!??!");
+                break;
+            case 3:
+                alert("ahhh ganun?");
+                break;
+            case 4:
+                alert("it will not stop, believe me.");
+                break;
+            case 5:
+                alert("as you wish.");
+                break;
+    
+        }
+    }
+}
+
+btn2.addEventListener('click', () => {
+    setBtn2Position(); // Set btn2 position to a random position without transition
+    scaleUpBtn1(); // Scale up btn1 when btn2 is clicked
+    displayTextAfterClicks(); // Display text after a certain number of clicks
+});
+
+// Reset btn1 when btn2 loses focus
+btn2.addEventListener('blur', () => {
+    resetBtn1();
+});
